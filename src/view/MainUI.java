@@ -4,10 +4,19 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import com.formdev.flatlaf.*;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+
 import controller.CardLayout.CardLayout_MainUI;
 import controller.CardLayout.CardLayout_User;
 
+import model.*;
+
+
 public class MainUI extends JFrame {
+	
+	private JFrame fr = new JFrame(":D this is MainUI Frame");
+	
 	private JPanel contentPane;
 	private JButton button_chat;
 	private JButton button_community;
@@ -88,7 +97,12 @@ public class MainUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+					FlatRobotoFont.install();
+					UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 15));
+					
+//					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+					FlatLightLaf.setup();
+					
 					MainUI frame = new MainUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -97,6 +111,8 @@ public class MainUI extends JFrame {
 			}
 		});
 	}
+	
+	
 
 	public MainUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -411,6 +427,21 @@ public class MainUI extends JFrame {
 		// <Panel_card_user_edit/>
 	// <Panel_card_user/>	
 // <VIEW/>
+		
+		
+		// show Login/Register
+		Model_Methods.Login_Show(fr);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	public JButton getButton_chat() {
