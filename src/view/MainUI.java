@@ -6,6 +6,10 @@ import javax.swing.border.*;
 
 import controller.CardLayout.CardLayout_MainUI;
 import controller.CardLayout.CardLayout_User;
+import view.ChatUI.event.EventImageView;
+import view.ChatUI.event.PublicEvent;
+import view.ChatUI.form.Home;
+import view.ChatUI.form.View_Image;
 
 public class MainUI extends JFrame {
 	private JPanel contentPane;
@@ -82,7 +86,10 @@ public class MainUI extends JFrame {
 	private JLabel lb_tenTaiKhoan;
 	private JLabel lb_tenTaiKhoan_1;
 	private JButton bt_user_avatar_edit;
-
+	
+	private JLayeredPane body;
+	private View_Image view_Image;
+	private Home home;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -410,8 +417,43 @@ public class MainUI extends JFrame {
 		panel_card_user_edit.add(bt_user_avatar_edit);
 		// <Panel_card_user_edit/>
 	// <Panel_card_user/>	
+		
+	// <Panel_card_chat>
+		body = new JLayeredPane();
+		view_Image = new View_Image();
+		home = new Home();
+
+		
+		body.setLayout(new CardLayout());
+		body.setLayer(view_Image, JLayeredPane.POPUP_LAYER);
+		body.add(view_Image, "card3");
+		body.add(home, "card2");
+		
+		view_Image.setVisible(false);
+		home.setVisible(true);
+		initEvent();
+		
+		panel_card_chat.setLayout(new GridLayout(1,1));
+		panel_card_chat.add(body);
+	// <Panel_card_chat>
 // <VIEW/>
 	}
+	
+    private void initEvent() {
+        PublicEvent.getInstance().addEventImageView(new EventImageView() {
+            @Override
+            public void viewImage(Icon image) {
+                view_Image.viewImage(image);
+                System.out.println("click");
+            }
+
+            @Override
+            public void saveImage(Icon image) {
+                System.out.println("Save Image next update");
+            }
+
+        });
+    }
 
 	public JButton getButton_chat() {
 		return button_chat;
