@@ -6,7 +6,7 @@ public class Model_Methods extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 
-	public static int level = 1;
+	public static int level = 4;
 	
 	private static Login LoginObj = new Login();
 	private static Register RegisterObj = new Register();
@@ -22,12 +22,15 @@ public class Model_Methods extends JFrame {
 	 	1 == login/register successful
 	 	2 == go to register
 	 	3 == go to login
+	 	4 == exit the app
 	 */
 	public static void checking(JFrame fr) {
 		if (level == 2) {
 			Register_Show(fr);
 		} else if (level == 3) {
 			Login_Show(fr);
+		} else if (level == 4) {
+			System.exit(0);
 		}
 	}
 	

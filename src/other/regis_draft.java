@@ -31,7 +31,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JTextArea;
 
-public class Register extends JFrame {
+public class regis_draft extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -45,7 +45,7 @@ public class Register extends JFrame {
 					
 					FlatIntelliJLaf.setup();
 					
-					Register frame = new Register();
+					regis_draft frame = new regis_draft();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +54,7 @@ public class Register extends JFrame {
 		});
 	}
 
-	public Register() {		
+	public regis_draft() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(600, 200, 1000, 700);
 		contentPane = new JPanel();

@@ -1,12 +1,9 @@
 package data;
 
 public class temp {
-	
-	public static String Username;
-	public static String User_Birth;
-	public static String User_Email;
-	public static int User_Phone;
-	public static String User_Address;
-	public static String User_Password;
+
+	// change these 2 line to match your database user and password.
+	public static String SQL_Username = "myuser2";
+	public static String SQL_Userpass = "10001";
 	
 }

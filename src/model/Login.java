@@ -26,6 +26,8 @@ import model.*;
 
 public class Login extends JFrame {
 	
+	private static Login_jdbc Login_jdbcObj = new Login_jdbc();
+	
 	private static final long serialVersionUID = 1L;
 	public static JTextField tf_Username;
 	public static JPasswordField pwf_Password;
@@ -39,21 +41,49 @@ public class Login extends JFrame {
 	}
 	
 	// TODO checking database
-	private static int checking() {
-		// if database checks exists username with password
-		if (1 + 1 != 0) {
-			// TODO transfer to temporary data holder in temp.java (data)
-			return 1;
-		} else {
-			// if database checks doens't have username or password is not correct
-			return 0;
+	private static void checking() {
+		String textcheck;
+		
+		// checking if Username is blank
+		if ((tf_Username.getText()).isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Your Username cannot be blank!",
+					"Warning", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		
+		
+		// checking if Password is blank
+		if ((new String(pwf_Password.getPassword())).isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Your Password cannot be blank!",
+					"Warning", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		
+		// checking if Username is exists
+		if (Login_jdbcObj.Username_Check(tf_Username.getText())) {
+			JOptionPane.showMessageDialog(null, "This Username isn't exists!",
+					"Warning", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		
+		// checking if the Password of this Username is correct
+		if (Login_jdbcObj.Password_Check(tf_Username.getText(), (new String(pwf_Password.getPassword()))) ) {
+			JOptionPane.showMessageDialog(null, "Incorrect password",
+					"Warning", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		
+		// if all above contidions all approved then proceed to login the app
+		Model_Methods.level = 1;
+		dialog.dispose();
 	}
 	
 	
     public void showCustomDialog(JFrame parentFrame) {
-    	Model_Methods.level = 1;
+    	Model_Methods.level = 4;
     	
     	// use Flatlaf look and feel
         try {
@@ -117,11 +147,7 @@ public class Login extends JFrame {
 		bt_Login = new JButton("Login\r\n");
 		bt_Login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (checking() == 0) {
-					JOptionPane.showMessageDialog(null, "Please check your Username or Password!", "User not found!", JOptionPane.PLAIN_MESSAGE);
-				} else {
-					dialog.dispose();			
-				}
+				checking();
 			}
 		});
 		bt_Login.setBounds(30, 232, 320, 32);
