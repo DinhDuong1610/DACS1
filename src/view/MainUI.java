@@ -10,6 +10,7 @@ import view.ChatUI.event.EventImageView;
 import view.ChatUI.event.PublicEvent;
 import view.ChatUI.form.Home;
 import view.ChatUI.form.View_Image;
+import view.CommunityUI.form.HomeCommu;
 
 public class MainUI extends JFrame {
 	private JPanel contentPane;
@@ -90,12 +91,13 @@ public class MainUI extends JFrame {
 	private JLayeredPane body;
 	private View_Image view_Image;
 	private Home home;
+	private HomeCommu home_community;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					MainUI frame = new MainUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -104,6 +106,7 @@ public class MainUI extends JFrame {
 			}
 		});
 	}
+
 
 	public MainUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -435,7 +438,14 @@ public class MainUI extends JFrame {
 		
 		panel_card_chat.setLayout(new GridLayout(1,1));
 		panel_card_chat.add(body);
-	// <Panel_card_chat>
+	// <Panel_card_chat/>
+		
+	// <Panel_card_community>
+		home_community = new HomeCommu();
+		panel_card_community.setLayout(new GridLayout(1, 1));
+		panel_card_community.add(home_community);
+		
+	// <Panel_card_community/>
 // <VIEW/>
 	}
 	

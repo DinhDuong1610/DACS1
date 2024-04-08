@@ -35,10 +35,10 @@ public class Item_People extends JPanel {
     private void initComponents() {
 
         imageAvatar1 = new ImageAvatar();
-        lb = new javax.swing.JLabel();
+        lb = new JLabel();
 
         imageAvatar1.setBorderSize(0);
-        imageAvatar1.setImage(new javax.swing.ImageIcon(getClass().getResource("/images/icon/profile.png")));
+        imageAvatar1.setImage(new javax.swing.ImageIcon(getClass().getResource("/images/testing/dinhdeptrai.jpg")));
 
         lb.setFont(new java.awt.Font("sansserif", Font.BOLD, 18)); // NOI18N
         lb.setText("Name");
@@ -48,7 +48,7 @@ public class Item_People extends JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lb, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                 .addContainerGap())
@@ -56,8 +56,8 @@ public class Item_People extends JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE,45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
