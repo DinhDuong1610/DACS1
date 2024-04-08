@@ -11,11 +11,18 @@ import controller.CardLayout.CardLayout_MainUI;
 import controller.CardLayout.CardLayout_User;
 
 import model.*;
+import data.*;
 
 
 public class MainUI extends JFrame {
 	
+	private MainUI MainUIObj;
+	
+	private User userclass = new User();		// this is User.java per application
+	
 	private JFrame fr = new JFrame(":D this is MainUI Frame");
+	private bootup bootupObj;
+	private Model_Methods Mome;
 	
 	private JPanel contentPane;
 	private JButton button_chat;
@@ -115,6 +122,9 @@ public class MainUI extends JFrame {
 	
 
 	public MainUI() {
+		
+		this.MainUIObj = this;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(-5,0, 1554, 840);
 		setTitle("TEAMS");
@@ -215,12 +225,12 @@ public class MainUI extends JFrame {
 		
 		label_user_email = new JLabel("EMAIL");
 		label_user_email.setFont(new Font("Tahoma", Font.BOLD, 25));
-		label_user_email.setBounds(503, 319, 217, 48);
+		label_user_email.setBounds(503, 261, 217, 48);
 		panel_card_user_view.add(label_user_email);
 		
 		label_user_sdt = new JLabel("SỐ ĐIỆN THOẠI");
 		label_user_sdt.setFont(new Font("Tahoma", Font.BOLD, 25));
-		label_user_sdt.setBounds(503, 261, 217, 48);
+		label_user_sdt.setBounds(503, 319, 217, 48);
 		panel_card_user_view.add(label_user_sdt);
 		
 		label_user_DiaChi = new JLabel("ĐỊA CHỈ");
@@ -280,7 +290,7 @@ public class MainUI extends JFrame {
 		label_user_avatar_1 = new JLabel("");
 		label_user_avatar_1.setOpaque(true);
 		label_user_avatar_1.setBackground(new Color(144, 238, 144));
-		label_user_avatar_1.setBounds(83, 87, 350, 350);
+		label_user_avatar_1.setBounds(83, 87, 350, 300);
 		panel_card_user_edit.add(label_user_avatar_1);
 		
 		label_user_TenTaiKhoan_1 = new JLabel("TÊN TÀI KHOẢN");
@@ -300,12 +310,12 @@ public class MainUI extends JFrame {
 		
 		label_user_email_1 = new JLabel("EMAIL");
 		label_user_email_1.setFont(new Font("Tahoma", Font.BOLD, 25));
-		label_user_email_1.setBounds(503, 319, 217, 48);
+		label_user_email_1.setBounds(503, 261, 217, 48);
 		panel_card_user_edit.add(label_user_email_1);
 		
 		label_user_sdt_1 = new JLabel("SỐ ĐIỆN THOẠI");
 		label_user_sdt_1.setFont(new Font("Tahoma", Font.BOLD, 25));
-		label_user_sdt_1.setBounds(503, 261, 217, 48);
+		label_user_sdt_1.setBounds(503, 319, 217, 48);
 		panel_card_user_edit.add(label_user_sdt_1);
 		
 		label_user_DiaChi_1 = new JLabel("ĐỊA CHỈ");
@@ -429,13 +439,14 @@ public class MainUI extends JFrame {
 // <VIEW/>
 		
 		
-		// show Login/Register
-		Model_Methods.Login_Show(fr);
+		// show Login/Register (get User_Id for User.java)
+		Mome = new Model_Methods(userclass);
+		Mome.Login_Show(fr);
 		
-		
-		
-		
-		
+		// bootup protocol
+		bootupObj = new bootup(userclass, MainUIObj);
+		bootupObj.bootup_initial();
+		bootupObj.bootup_userview();
 		
 		
 		
@@ -444,6 +455,15 @@ public class MainUI extends JFrame {
 		
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public JButton getButton_chat() {
 		return button_chat;
 	}

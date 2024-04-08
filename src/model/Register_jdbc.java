@@ -6,8 +6,10 @@ import data.*;
 
 public class Register_jdbc {
 
-	public Register_jdbc() {
-
+	private User userObj;
+	
+	public Register_jdbc(User user) {
+		this.userObj = user;
 	}
 
 	public boolean Username_Check(String name) {
@@ -46,15 +48,15 @@ public class Register_jdbc {
 	}
 	
 
-	public void Create_Account(String Username, String Birth, String Email, String Phone, String Address, String Password) {
+	public void Create_Account(String Username, String Fullname, String Birth, String Email, String Phone, String Address, String Password) {
 
 		try (Connection conn = DriverManager.getConnection(
 				"jdbc:mysql://localhost:3306/dacs1_data?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
 				temp.SQL_Username, temp.SQL_Userpass);
 
 				Statement stmt = conn.createStatement();) {
-			String str1 = "INSERT INTO Users(Name, Birth, Email, Phone, Address, Password) VALUES"
-					+ "('" + Username + "', '" + Birth + "', '" + Email + "', '" + Phone + "', '" + Address + "', '" + Password + "');";
+			String str1 = "INSERT INTO Users(Name, Fullname, Birth, Email, Phone, Address, Password) VALUES"
+					+ "('" + Username + "', '" + Fullname + "', '" + Birth + "', '" + Email + "', '" + Phone + "', '" + Address + "', '" + Password + "');";
 			System.out.println("The SQL statement is: " + str1 + "\n");
 			int rset1 = stmt.executeUpdate(str1);
 
@@ -64,4 +66,33 @@ public class Register_jdbc {
 
 	}
 
+	
+	// using Username to get User_Id (we use User_Id in general for simpler understanding)
+	public void initial_User_Id(String Username) {
+		try (Connection conn = DriverManager.getConnection(
+				"jdbc:mysql://localhost:3306/dacs1_data?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
+				temp.SQL_Username, temp.SQL_Userpass);
+
+				Statement stmt = conn.createStatement();) {
+			String str1 = "SELECT User_Id FROM users WHERE Name = '" + Username + "' ;";
+//			System.out.println("The SQL statement is: " + str1 + "\n");
+			ResultSet rset1 = stmt.executeQuery(str1);
+
+			while (rset1.next()) {
+				
+				int jdbc_User_Id = rset1.getInt("User_Id");	
+				
+				
+				// put User_Id into User.java
+				userObj.setUser_Id(jdbc_User_Id);
+				
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	
 }

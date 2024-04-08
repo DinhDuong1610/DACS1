@@ -26,22 +26,24 @@ import model.*;
 
 public class Login extends JFrame {
 	
-	private static Login_jdbc Login_jdbcObj = new Login_jdbc();
+	private User userObj;
+	private Login_jdbc Login_jdbcObj;
 	
 	private static final long serialVersionUID = 1L;
-	public static JTextField tf_Username;
-	public static JPasswordField pwf_Password;
-	public static JButton bt_Login;
-	public static JLabel lblSignUp;
+	public JTextField tf_Username;
+	public JPasswordField pwf_Password;
+	public JButton bt_Login;
+	public JLabel lblSignUp;
 	
-	private static JDialog dialog;
+	private JDialog dialog;
 	
-	public Login() {
-		
+	public Login(User user) {
+		this.userObj = user;
+		this.Login_jdbcObj = new Login_jdbc(user);
 	}
 	
 	// TODO checking database
-	private static void checking() {
+	private void checking() {
 		String textcheck;
 		
 		// checking if Username is blank
@@ -77,6 +79,10 @@ public class Login extends JFrame {
 		
 		
 		// if all above contidions all approved then proceed to login the app
+		
+		// get User_Id for User.java
+		Login_jdbcObj.initial_User_Id(tf_Username.getText());
+		
 		Model_Methods.level = 1;
 		dialog.dispose();
 	}
