@@ -4,6 +4,9 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import com.formdev.flatlaf.*;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+
 import controller.CardLayout.CardLayout_MainUI;
 import controller.CardLayout.CardLayout_User;
 import view.ChatUI.event.EventImageView;
@@ -12,7 +15,21 @@ import view.ChatUI.form.Home;
 import view.ChatUI.form.View_Image;
 import view.CommunityUI.form.HomeCommu;
 
+import model.*;
+import model.jbutton.*;
+import data.*;
+
+
 public class MainUI extends JFrame {
+	
+	private MainUI MainUIObj;
+	
+	private User userclass = new User();		// this is User.java per application
+	
+	private JFrame fr = new JFrame(":D this is MainUI Frame");
+	private bootup bootupObj;
+	private Model_Methods Mome;
+	
 	private JPanel contentPane;
 	private JButton button_chat;
 	private JButton button_community;
@@ -39,7 +56,7 @@ public class MainUI extends JFrame {
 	private JTextField textField_4;
 	private JScrollPane scrollPane;
 	private JPanel panel_card_user_edit;
-	private JLabel label_user_avatar_1;
+	private JLabel label_user_avatar_edit;
 	private JLabel label_user_TenTaiKhoan_1;
 	private JLabel label_user_HoVaTen_1;
 	private JLabel label_user_NgaySinh_1;
@@ -74,7 +91,7 @@ public class MainUI extends JFrame {
 	private JLabel lb_user_password_eidt_old;
 	private JLabel lb_user_password_edit_new;
 	private JLabel lb_user_password_edit_new_confirm;
-	private JPasswordField pwf_user_password_eidt_old;
+	private JPasswordField pwf_user_password_edit_old;
 	private JPasswordField pwf_user_password_edit_new;
 	private JPasswordField pwf_user_password_edit_new_confirm;
 	private JButton bt_user_password_edit_save;
@@ -85,7 +102,7 @@ public class MainUI extends JFrame {
 	private CardLayout cardLayout_User;
 	private CardLayout cardLayout_password_edit;
 	private JLabel lb_tenTaiKhoan;
-	private JLabel lb_tenTaiKhoan_1;
+	private JLabel lb_tenTaiKhoan_edit;
 	private JButton bt_user_avatar_edit;
 	
 	private JLayeredPane body;
@@ -93,11 +110,19 @@ public class MainUI extends JFrame {
 	private Home home;
 	private HomeCommu home_community;
 
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					
+					FlatRobotoFont.install();
+					UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 15));
+					
+//					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+					FlatLightLaf.setup();
+					
 					MainUI frame = new MainUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -106,9 +131,14 @@ public class MainUI extends JFrame {
 			}
 		});
 	}
+	
+	
 
 
 	public MainUI() {
+		
+		this.MainUIObj = this;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(-5,0, 1554, 840);
 		setTitle("TEAMS");
@@ -159,7 +189,7 @@ public class MainUI extends JFrame {
 		
 // <Thanh Menu/>
 		
-// <VIEW>
+// <VIEW>	
 		panel_card = new JPanel();
 		panel_card.setBounds(63, 0, 1472, 803);
 		panel_main.add(panel_card);
@@ -176,7 +206,7 @@ public class MainUI extends JFrame {
 		panel_card.add(panel_card_calender, "panel_card_calender");
 		
 	// <Panel_card_user>		
-		CardLayout_User action_cardLayout_user = new CardLayout_User(this);
+		CardLayout_User action_cardLayout_user = new CardLayout_User(userclass, MainUIObj);
 		panel_card_user = new JPanel();
 		panel_card.add(panel_card_user, "panel_card_user");
 		cardLayout_User = new CardLayout(0, 0);
@@ -209,12 +239,12 @@ public class MainUI extends JFrame {
 		
 		label_user_email = new JLabel("EMAIL");
 		label_user_email.setFont(new Font("Tahoma", Font.BOLD, 25));
-		label_user_email.setBounds(503, 319, 217, 48);
+		label_user_email.setBounds(503, 261, 217, 48);
 		panel_card_user_view.add(label_user_email);
 		
 		label_user_sdt = new JLabel("SỐ ĐIỆN THOẠI");
 		label_user_sdt.setFont(new Font("Tahoma", Font.BOLD, 25));
-		label_user_sdt.setBounds(503, 261, 217, 48);
+		label_user_sdt.setBounds(503, 319, 217, 48);
 		panel_card_user_view.add(label_user_sdt);
 		
 		label_user_DiaChi = new JLabel("ĐỊA CHỈ");
@@ -267,15 +297,20 @@ public class MainUI extends JFrame {
 		// <Panel_card_user_view/>
 		
 		// <Panel_card_user_edit>
+		model_user_edit_save user_edit_save_listener = new model_user_edit_save(userclass, MainUIObj);
+		model_user_avatar_edit user_avatar_edit_listener = new model_user_avatar_edit(userclass, MainUIObj);
+		model_user_password_edit_save user_password_edit_save_listener = new model_user_password_edit_save(userclass, MainUIObj);
+		
+		
 		panel_card_user_edit = new JPanel();
 		panel_card_user_edit.setLayout(null);
 		panel_card_user.add(panel_card_user_edit, "panel_card_user_edit");
 		
-		label_user_avatar_1 = new JLabel("");
-		label_user_avatar_1.setOpaque(true);
-		label_user_avatar_1.setBackground(new Color(144, 238, 144));
-		label_user_avatar_1.setBounds(83, 87, 350, 350);
-		panel_card_user_edit.add(label_user_avatar_1);
+		label_user_avatar_edit = new JLabel("");
+		label_user_avatar_edit.setOpaque(true);
+		label_user_avatar_edit.setBackground(new Color(144, 238, 144));
+		label_user_avatar_edit.setBounds(83, 87, 350, 350);
+		panel_card_user_edit.add(label_user_avatar_edit);
 		
 		label_user_TenTaiKhoan_1 = new JLabel("TÊN TÀI KHOẢN");
 		label_user_TenTaiKhoan_1.setFont(new Font("Tahoma", Font.BOLD, 25));
@@ -294,12 +329,12 @@ public class MainUI extends JFrame {
 		
 		label_user_email_1 = new JLabel("EMAIL");
 		label_user_email_1.setFont(new Font("Tahoma", Font.BOLD, 25));
-		label_user_email_1.setBounds(503, 319, 217, 48);
+		label_user_email_1.setBounds(503, 261, 217, 48);
 		panel_card_user_edit.add(label_user_email_1);
 		
 		label_user_sdt_1 = new JLabel("SỐ ĐIỆN THOẠI");
 		label_user_sdt_1.setFont(new Font("Tahoma", Font.BOLD, 25));
-		label_user_sdt_1.setBounds(503, 261, 217, 48);
+		label_user_sdt_1.setBounds(503, 319, 217, 48);
 		panel_card_user_edit.add(label_user_sdt_1);
 		
 		label_user_DiaChi_1 = new JLabel("ĐỊA CHỈ");
@@ -383,10 +418,10 @@ public class MainUI extends JFrame {
 		lb_user_password_edit_new_confirm.setBounds(38, 91, 211, 30);
 		panel_user_password_edit_view.add(lb_user_password_edit_new_confirm);
 		
-		pwf_user_password_eidt_old = new JPasswordField();
-		pwf_user_password_eidt_old.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		pwf_user_password_eidt_old.setBounds(280, 10, 281, 30);
-		panel_user_password_edit_view.add(pwf_user_password_eidt_old);
+		pwf_user_password_edit_old = new JPasswordField();
+		pwf_user_password_edit_old.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		pwf_user_password_edit_old.setBounds(280, 10, 281, 30);
+		panel_user_password_edit_view.add(pwf_user_password_edit_old);
 		
 		pwf_user_password_edit_new = new JPasswordField();
 		pwf_user_password_edit_new.setFont(new Font("Tahoma", Font.PLAIN, 19));
@@ -401,22 +436,25 @@ public class MainUI extends JFrame {
 		bt_user_password_edit_save = new JButton("Lưu mật khẩu");
 		bt_user_password_edit_save.setFont(new Font("Tahoma", Font.BOLD, 17));
 		bt_user_password_edit_save.setBounds(242, 139, 165, 36);
+		bt_user_password_edit_save.addActionListener(user_password_edit_save_listener);
 		panel_user_password_edit_view.add(bt_user_password_edit_save);
 		
 		bt_user_edit_save = new JButton("LƯU THAY ĐỔI");
 		bt_user_edit_save.setFont(new Font("Tahoma", Font.BOLD, 18));
 		bt_user_edit_save.setBounds(928, 758, 217, 38);
+		bt_user_edit_save.addActionListener(user_edit_save_listener);
 		panel_card_user_edit.add(bt_user_edit_save);
 		
-		lb_tenTaiKhoan_1 = new JLabel("DINH_DUONG");
-		lb_tenTaiKhoan_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lb_tenTaiKhoan_1.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lb_tenTaiKhoan_1.setBounds(83, 447, 350, 51);
-		panel_card_user_edit.add(lb_tenTaiKhoan_1);
+		lb_tenTaiKhoan_edit = new JLabel("DINH_DUONG");
+		lb_tenTaiKhoan_edit.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_tenTaiKhoan_edit.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lb_tenTaiKhoan_edit.setBounds(83, 482, 350, 51);
+		panel_card_user_edit.add(lb_tenTaiKhoan_edit);
 		
 		bt_user_avatar_edit = new JButton("");
 		bt_user_avatar_edit.setIcon(new ImageIcon(MainUI.class.getResource("/images/icon/icon_camera.png")));
-		bt_user_avatar_edit.setBounds(83, 400, 350, 37);
+		bt_user_avatar_edit.setBounds(83, 435, 350, 37);
+		bt_user_avatar_edit.addActionListener(user_avatar_edit_listener);
 		panel_card_user_edit.add(bt_user_avatar_edit);
 		// <Panel_card_user_edit/>
 	// <Panel_card_user/>	
@@ -447,6 +485,22 @@ public class MainUI extends JFrame {
 		
 	// <Panel_card_community/>
 // <VIEW/>
+		
+		
+		// show Login/Register (get User_Id for User.java)
+		Mome = new Model_Methods(userclass);
+		Mome.Login_Show(fr);
+		
+		// bootup protocol
+		bootupObj = new bootup(userclass, MainUIObj);
+		bootupObj.bootup_initial();
+		bootupObj.bootup_userview();
+		
+		
+		
+		
+		
+		
 	}
 	
     private void initEvent() {
@@ -464,6 +518,17 @@ public class MainUI extends JFrame {
 
         });
     }
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 
 	public JButton getButton_chat() {
 		return button_chat;
@@ -586,7 +651,7 @@ public class MainUI extends JFrame {
 	}
 
 	public JPasswordField getPwf_user_password_eidt_old() {
-		return pwf_user_password_eidt_old;
+		return pwf_user_password_edit_old;
 	}
 
 	public JPasswordField getPwf_user_password_edit_new() {
@@ -624,4 +689,25 @@ public class MainUI extends JFrame {
 	public CardLayout getCardLayout_password_edit() {
 		return cardLayout_password_edit;
 	}
+	
+	public JLabel getLabel_user_avatar() {
+		return label_user_avatar;
+	}
+
+	public JLabel getLabel_user_avatar_edit() {
+		return label_user_avatar_edit;
+	}
+	
+	public JLabel getLb_tenTaiKhoan() {
+		return lb_tenTaiKhoan;
+	}
+	
+	public JLabel getLb_tenTaiKhoan_edit() {
+		return lb_tenTaiKhoan_edit;
+	}
+	
+	public JButton getBt_user_avatar_edit() {
+		return bt_user_avatar_edit;
+	}
+	
 }
