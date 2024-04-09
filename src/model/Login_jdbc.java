@@ -10,8 +10,10 @@ import data.temp;
 
 public class Login_jdbc {
 	
-	public Login_jdbc() {
-		
+	private User userObj;
+	
+	public Login_jdbc(User user) {
+		this.userObj = user;
 	}
 	
 	
@@ -85,4 +87,33 @@ public class Login_jdbc {
 		// meaning the Password is incorrect for that Username
 		return true;
 	}
+	
+	
+	// using Username to get User_Id (we use User_Id in general for simpler understanding)
+	public void initial_User_Id(String Username) {
+		try (Connection conn = DriverManager.getConnection(
+				"jdbc:mysql://localhost:3306/dacs1_data?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
+				temp.SQL_Username, temp.SQL_Userpass);
+
+				Statement stmt = conn.createStatement();) {
+			String str1 = "SELECT User_Id FROM users WHERE Name = '" + Username + "' ;";
+//			System.out.println("The SQL statement is: " + str1 + "\n");
+			ResultSet rset1 = stmt.executeQuery(str1);
+
+			while (rset1.next()) {
+				
+				int jdbc_User_Id = rset1.getInt("User_Id");	
+				
+				
+				// put User_Id into User.java
+				userObj.setUser_Id(jdbc_User_Id);
+				
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	
 }
