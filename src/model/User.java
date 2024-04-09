@@ -2,6 +2,8 @@ package model;
 
 import java.util.Date;
 
+import javax.swing.ImageIcon;
+
 // gốc class java ni là trong MainUI.java
 // User.java ni hiện tại chỉ đang dùng để lưu trữ thông tin tạm thời, chưa có gì quá đặc sắc
 
@@ -20,7 +22,8 @@ public class User {
 	private String Address;
 	private String Password;
 	
-	private byte[] Avatar;
+	private ImageIcon Avatar;
+	private String Avatar_path;
 	
 	
 	
@@ -90,12 +93,20 @@ public class User {
 		Password = password;
 	}
 
-	public byte[] getAvatar() {
+	public ImageIcon getAvatar() {
 		return Avatar;
 	}
 
-	public void setAvatar(byte[] avatar) {
+	public void setAvatar(ImageIcon avatar) {
 		Avatar = avatar;
+	}
+
+	public String getAvatar_path() {
+		return Avatar_path;
+	}
+
+	public void setAvatar_path(String avatar_path) {
+		Avatar_path = avatar_path;
 	}
 	
 }

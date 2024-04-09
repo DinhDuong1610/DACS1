@@ -18,7 +18,7 @@ public class Register_jdbc {
 				temp.SQL_Username, temp.SQL_Userpass);
 
 				Statement stmt = conn.createStatement();) {
-			String str1 = "SELECT * FROM users ;";
+			String str1 = "SELECT Name FROM users ;";
 			//			System.out.println("The SQL statement is: " + str1 + "\n");
 			ResultSet rset1 = stmt.executeQuery(str1);
 

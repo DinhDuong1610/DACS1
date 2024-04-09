@@ -28,6 +28,7 @@ public class bootup {
 	
 	
 	public void bootup_userview() {
+		mainUIObj.getLb_tenTaiKhoan().setText(UserObj.getUsername());
 		mainUIObj.getTf_user_TenTaiKhoan().setText(UserObj.getUsername());
 		mainUIObj.getTf_user_HoVaTen().setText(UserObj.getFullname());
 		
@@ -37,9 +38,31 @@ public class bootup {
 		mainUIObj.getTf_user_email().setText(UserObj.getEmail());
 		mainUIObj.getTf_user_sdt().setText(UserObj.getPhone());
 		mainUIObj.getTa_DiaChi().setText(UserObj.getAddress());
-		
-		// TODO mainUIObj avatar label
+		mainUIObj.getLabel_user_avatar().setIcon(Utili.ImageIcon_Label_Scale(UserObj.getAvatar(), mainUIObj.getLabel_user_avatar()));
 	}
+	
+	
+	public void bootup_useredit() {
+		mainUIObj.getLb_tenTaiKhoan_edit().setText(UserObj.getUsername());
+		mainUIObj.getTf_user_TenTaiKhoan_edit().setText(UserObj.getUsername());
+		mainUIObj.getTf_user_HoVaTen_edit().setText(UserObj.getFullname());
+		
+		String strDate = Utili.utilDate_to_String(UserObj.getBirth());
+		mainUIObj.getTf_user_NgaySinh_edit().setText(strDate);
+		
+		mainUIObj.getTf_user_email_edit().setText(UserObj.getEmail());
+		mainUIObj.getTf_user_sdt_edit().setText(UserObj.getPhone());
+		mainUIObj.getTa_DiaChi_edit().setText(UserObj.getAddress());
+		mainUIObj.getLabel_user_avatar_edit().setIcon(Utili.ImageIcon_Label_Scale(UserObj.getAvatar(), mainUIObj.getLabel_user_avatar()));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
