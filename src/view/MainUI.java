@@ -1,16 +1,55 @@
 package view;
 
 import java.awt.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
+import com.toedter.calendar.JCalendar;
+
 import controller.CardLayout.CardLayout_MainUI;
 import controller.CardLayout.CardLayout_User;
+import net.miginfocom.swing.MigLayout;
+import view.CalendarUI.CalendarUI;
 import view.ChatUI.event.EventImageView;
 import view.ChatUI.event.PublicEvent;
 import view.ChatUI.form.Home;
 import view.ChatUI.form.View_Image;
 import view.CommunityUI.form.HomeCommu;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.awt.event.ActionEvent;
+import com.toedter.calendar.JDayChooser;
+import com.mindfusion.common.DateTime;
+import com.mindfusion.drawing.SolidBrush;
+import com.mindfusion.scheduling.Calendar;
+import com.mindfusion.scheduling.ThemeType;
+import com.mindfusion.scheduling.model.Appointment;
+import com.toedter.calendar.JCalendar;
+import com.mindfusion.scheduling.CalendarAdapter;
+import com.mindfusion.scheduling.ItemConfirmEvent;
+import com.mindfusion.scheduling.ResourceDateEvent;
+import com.mindfusion.scheduling.model.ItemEvent;
+import com.mindfusion.scheduling.ItemMouseEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainUI extends JFrame {
 	private JPanel contentPane;
@@ -174,6 +213,7 @@ public class MainUI extends JFrame {
 		
 		panel_card_calender = new JPanel();
 		panel_card.add(panel_card_calender, "panel_card_calender");
+		
 		
 	// <Panel_card_user>		
 		CardLayout_User action_cardLayout_user = new CardLayout_User(this);
@@ -446,6 +486,13 @@ public class MainUI extends JFrame {
 		panel_card_community.add(home_community);
 		
 	// <Panel_card_community/>
+		
+	// <Panel_card_calendar>
+		panel_card_calender.setLayout(new GridLayout(1,1));
+		CalendarUI calendarUI = new CalendarUI();
+		panel_card_calender.add(calendarUI);
+	// <Panel_card_calendar/>
+
 // <VIEW/>
 	}
 	
@@ -464,7 +511,7 @@ public class MainUI extends JFrame {
 
         });
     }
-
+    
 	public JButton getButton_chat() {
 		return button_chat;
 	}
