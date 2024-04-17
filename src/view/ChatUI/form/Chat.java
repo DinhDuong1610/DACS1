@@ -5,6 +5,9 @@ import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 
+import model.Chat.Model_Receive_Message;
+import model.Chat.Model_Send_Message;
+import model.Chat.Model_User_Account;
 import net.miginfocom.swing.MigLayout;
 import view.ChatUI.component.Chat_Body;
 import view.ChatUI.component.Chat_Bottom;
@@ -35,12 +38,19 @@ public class Chat extends JPanel{
             .addGap(0, 681, Short.MAX_VALUE)
         );
 		
-        setLayout(new MigLayout("fillx", "0[fill]0", "0[]0[100%, bottom]0[shrink 0]0"));
+        setLayout(new MigLayout("fillx", "0[fill]0", "0[]0[100%, fill]0[shrink 0]0"));
         
         PublicEvent.getInstance().addEventChat(new EventChat() {
             @Override
-            public void sendMessage(String text) {
-                chatBody.addItemRight(text);
+            public void sendMessage(Model_Send_Message data) {
+                chatBody.addItemRight(data);
+            }
+
+            @Override
+            public void receiveMessage(Model_Receive_Message data) {
+                if (chatTitle.getUser().getUser_Id() == data.getFromUserID()) {
+                    chatBody.addItemLeft(data);
+                }
             }
         });
         
@@ -48,4 +58,14 @@ public class Chat extends JPanel{
         add(chatBody, "wrap");
         add(chatBottom, "h :: 50%");
 	}
+	
+    public void setUser(Model_User_Account user) {
+        chatTitle.setUserName(user);
+        chatBottom.setUser(user);
+        chatBody.clearChat();
+    }
+
+    public void updateUser(Model_User_Account user) {
+        chatTitle.updateUser(user);
+    }
 }

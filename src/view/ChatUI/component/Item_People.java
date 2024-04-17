@@ -6,15 +6,20 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
+import model.Chat.Model_User_Account;
+import view.ChatUI.event.PublicEvent;
 import view.ChatUI.swing.ImageAvatar;
 
 public class Item_People extends JPanel {
 	private ImageAvatar imageAvatar1;
     private JLabel lb;
+    private boolean mouseOver;
+    private final Model_User_Account user;
 	
-    public Item_People(String name) {
+    public Item_People(Model_User_Account user) {
+    	this.user = user;
         initComponents();
-        lb.setText(name);
+        lb.setText(user.getUserName());
         init();
     }
     
@@ -23,11 +28,19 @@ public class Item_People extends JPanel {
             @Override
             public void mouseEntered(MouseEvent me) {
                 setBackground(new Color(230, 230, 230));
+                mouseOver = true;
             }
 
             @Override
             public void mouseExited(MouseEvent me) {
                 setBackground(new Color(255, 255, 255));
+                mouseOver = false;
+            }
+            @Override
+            public void mouseReleased(MouseEvent me) {
+                if (mouseOver) {
+                    PublicEvent.getInstance().getEventMain().selectUser(user);
+                }
             }
         });
     }
@@ -38,7 +51,7 @@ public class Item_People extends JPanel {
         lb = new JLabel();
 
         imageAvatar1.setBorderSize(0);
-        imageAvatar1.setImage(new javax.swing.ImageIcon(getClass().getResource("/images/testing/dinhdeptrai.jpg")));
+        imageAvatar1.setImage(new ImageIcon(getClass().getResource("/images/testing/avatar.png")));
 
         lb.setFont(new java.awt.Font("sansserif", Font.BOLD, 18)); // NOI18N
         lb.setText("Name");
@@ -63,5 +76,9 @@ public class Item_People extends JPanel {
                 .addComponent(lb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+    }
+    
+    public Model_User_Account getUser() {
+        return user;
     }
 }

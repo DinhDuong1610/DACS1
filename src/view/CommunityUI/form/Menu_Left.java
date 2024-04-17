@@ -11,10 +11,15 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import controller.Community.Controller_MenuLeft;
+import model.Chat.Model_User_Account;
+import model.community.Model_Project;
 import net.miginfocom.swing.MigLayout;
+import service.Service;
 import view.MainUI;
+import view.ChatUI.component.Item_People;
 import view.CommunityUI.component.Item_Project;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class Menu_Left extends JPanel{
@@ -22,6 +27,7 @@ public class Menu_Left extends JPanel{
 	private JPanel panel_menu_list;
 	private JButton bt_add;
 	private JButton bt_notification;
+	private List<Model_Project> projects;
 
 	public Menu_Left() {
 		Controller_MenuLeft action_menuLeft = new Controller_MenuLeft(this);
@@ -67,22 +73,20 @@ public class Menu_Left extends JPanel{
 		jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(jScrollPane);
 		
-		showProject();
+//		showProject();		
 	}
 	
 	public void showProject() {
 		panel_menu_list.removeAll();
-		for(int i = 1; i <= 20; i++) {
-			addProject("PROJECT " + i);
-//			panel_menu_list.add(new Item_Project("PROJECT " + i) , "width 250:250:250, height 50:50:50, wrap");
-
-		}
-//		panel_menu_list.repaint();
-//		panel_menu_list.revalidate();
+//        for (Model_Project p : projects) {
+//    		panel_menu_list.add(new Item_Project(p) , "width 250:250:250, height 50:50:50, wrap");
+//        }
+		panel_menu_list.repaint();
+		panel_menu_list.revalidate();
 	}
 	
-	public void addProject(String nameProject) {
-		panel_menu_list.add(new Item_Project(nameProject) , "width 250:250:250, height 50:50:50, wrap");
+	public void addProject(Model_Project project) {
+		panel_menu_list.add(new Item_Project(project) , "width 250:250:250, height 50:50:50, wrap");
 		panel_menu_list.repaint();
 		panel_menu_list.revalidate();
 	}
@@ -93,6 +97,22 @@ public class Menu_Left extends JPanel{
 
 	public JButton getBt_notification() {
 		return bt_notification;
+	}
+
+	public List<Model_Project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(List<Model_Project> projects) {
+		this.projects = projects;
+	}
+
+	public JPanel getPanel_menu_list() {
+		return panel_menu_list;
+	}
+
+	public void setPanel_menu_list(JPanel panel_menu_list) {
+		this.panel_menu_list = panel_menu_list;
 	}
 	
 	

@@ -11,6 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 
+import model.Chat.Model_Receive_Message;
+import model.Chat.Model_Send_Message;
 import net.miginfocom.swing.MigLayout;
 
 public class Chat_Body extends javax.swing.JPanel {
@@ -52,34 +54,45 @@ public class Chat_Body extends javax.swing.JPanel {
         
         body.setLayout(new MigLayout("fillx", "", "5[]5"));
         
-        addItemLeft("Nhiều khi anh mong được một lần nói ra hết tất cả thay vì. Ngồi lặng im nghe em kể về anh ta bằng đôi mắt lấp lánh", "Đính Dương");
-        addItemRight("Đôi lúc em tránh ánh mắt của anh. Vì dường như lúc nào em cũng hiểu thấu lòng anh.");
-        addItemLeft("Ko thể ngắt lời, càng ko thể để giọt lệ nào đc rơi", "Đính Dương", new ImageIcon(getClass().getResource("/images/testing/dinhdeptrai.jpg")));
-        addDate("01/04/2024");
-        addItemLeft("Nên anh lùi bước về sau, để thấy em rõ hơn", "Đính Dương");
-        addItemRight("Để có thể ngắm em từ xa âu yếm hơn");
-        addItemLeft("Cả nguồn sống bỗng chốc thu bé lại vừa bằng 1 cô gái", "Đính Dương");
-        addItemRight("Hay anh vẫn sẽ lặng lẽ kế bên", new ImageIcon(getClass().getResource("/images/testing/dinhdeptrai.jpg")));
-        addDate("06/04/2024");
-        addItemLeft("Dù ko nắm tay nhưng đường chung mãi mãi", "Đính Dương", new ImageIcon(getClass().getResource("/images/testing/dinhdeptrai.jpg")));
-        addItemRight("Và từ ấy ánh mắt anh hồn nhiên đến lạ");
-        addItemFile("", "Dara", "my doc.pdf", "1 MB");
-        addItemFileRight("", "myfile.rar", "15 MB");
+//        addItemLeft("Nhiều khi anh mong được một lần nói ra hết tất cả thay vì. Ngồi lặng im nghe em kể về anh ta bằng đôi mắt lấp lánh", "Đính Dương");
+//        addItemRight("Đôi lúc em tránh ánh mắt của anh. Vì dường như lúc nào em cũng hiểu thấu lòng anh.");
+//        addItemLeft("Ko thể ngắt lời, càng ko thể để giọt lệ nào đc rơi", "Đính Dương", new ImageIcon(getClass().getResource("/images/testing/avatar.png")));
+//        addDate("01/04/2024");
+//        addItemLeft("Nên anh lùi bước về sau, để thấy em rõ hơn", "Đính Dương");
+//        addItemRight("Để có thể ngắm em từ xa âu yếm hơn");
+//        addItemLeft("Cả nguồn sống bỗng chốc thu bé lại vừa bằng 1 cô gái", "Đính Dương");
+//        addItemRight("Hay anh vẫn sẽ lặng lẽ kế bên", new ImageIcon(getClass().getResource("/images/testing/avatar.png")));
+//        addDate("06/04/2024");
+//        addItemLeft("Dù ko nắm tay nhưng đường chung mãi mãi", "Đính Dương", new ImageIcon(getClass().getResource("/images/testing/avatar.png")));
+//        addItemRight("Và từ ấy ánh mắt anh hồn nhiên đến lạ");
+//        addItemFile("", "Dara", "my doc.pdf", "1 MB");
+//        addItemFileRight("", "myfile.rar", "15 MB");
         
         updateScroll();
     }
 
-    public void addItemLeft(String text, String user, Icon... image) {
-        Chat_Left_With_Profile item = new Chat_Left_With_Profile();
-        item.setUserProfile(user);
-        item.setText(text);
-        item.setImage(image);
+//    public void addItemLeft(String text, String user, Icon... image) {
+//        Chat_Left_With_Profile item = new Chat_Left_With_Profile();
+//        item.setUserProfile(user);
+//        item.setText(text);
+//        item.setImage(image);
+//        item.setTime();
+//        body.add(item, "wrap, w ::80%");
+//        //  ::80% set max with 80%
+//        body.repaint();
+//        body.revalidate();
+//        updateScroll();
+//    }
+    
+    public void addItemLeft(Model_Receive_Message data) {
+        Chat_Left item = new Chat_Left();
+        item.setText(data.getText());
         item.setTime();
-        body.add(item, "wrap, w ::80%");
-        //  ::80% set max with 80%
-        body.repaint();
-        body.revalidate();
+        body.add(item, "wrap, w 100::80%");
+        repaint();
+        revalidate();
         updateScroll();
+        
     }
     
     public void addItemFile(String text, String user, String fileName, String fileSize) {
@@ -107,16 +120,27 @@ public class Chat_Body extends javax.swing.JPanel {
         updateScroll();
     }
     
-    public void addItemRight(String text, Icon... image) {
+//    public void addItemRight(String text, Icon... image) {
+//        Chat_Right item = new Chat_Right();
+//        item.setText(text);
+//        item.setImage(image);
+//        item.setTime();
+//        body.add(item, "wrap, al right, w ::80%");
+//        //  ::80% set max with 80%
+//        body.repaint();
+//        body.revalidate();
+//        updateScroll();
+//    }
+    
+    public void addItemRight(Model_Send_Message data) {
         Chat_Right item = new Chat_Right();
-        item.setText(text);
-        item.setImage(image);
+        item.setText(data.getText());
+        body.add(item, "wrap, al right, w 100::80%");
+        repaint();
+        revalidate();
         item.setTime();
-        body.add(item, "wrap, al right, w ::80%");
-        //  ::80% set max with 80%
-        body.repaint();
-        body.revalidate();
         updateScroll();
+//        scrollToBottom();
     }
     
     public void addDate(String date) {
@@ -126,6 +150,12 @@ public class Chat_Body extends javax.swing.JPanel {
     	body.repaint();
     	body.revalidate();
     	updateScroll();
+    }
+    
+    public void clearChat() {
+        body.removeAll();
+        repaint();
+        revalidate();
     }
     
     public void updateScroll() {

@@ -11,14 +11,16 @@ import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import model.community.Model_Post;
 import view.ChatUI.swing.ImageAvatar;
 import view.ChatUI.swing.JIMSendTextPane;
 
 public class Item_post extends JPanel{
 	private ImageAvatar imageAvatar;
+	private Model_Post post;
 
-	public Item_post(String userName, String time, String content) {
-
+	public Item_post(Model_Post post) {
+		this.post = post;
 		setBorder(new EmptyBorder(0, 20, 10, 10));
 		
 		JPanel panel_title = new JPanel();
@@ -45,7 +47,7 @@ public class Item_post extends JPanel{
 		);
 		
 		JIMSendTextPane lb_content = new JIMSendTextPane();
-		lb_content.setText(content);
+		lb_content.setText(post.getContent());
 		lb_content.setEditable(false);
 		lb_content.setPreferredSize(new Dimension(lb_content.getPreferredSize().width, lb_content.getPreferredSize().height));
 		lb_content.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -63,12 +65,12 @@ public class Item_post extends JPanel{
 //		JLabel lb_avatar = new JLabel("");
 		imageAvatar = new ImageAvatar();
 		imageAvatar.setBorderSize(0);
-		imageAvatar.setImage(new ImageIcon(getClass().getResource("/images/testing/dinhdeptrai.jpg")));
+		imageAvatar.setImage(new ImageIcon(getClass().getResource("/images/testing/avatar.png")));
 		
-		JLabel lb_userName = new JLabel(userName);
+		JLabel lb_userName = new JLabel(post.getUserName());
 		lb_userName.setFont(new Font("Tahoma", Font.BOLD, 22));
 		
-		JLabel lb_time = new JLabel(time);
+		JLabel lb_time = new JLabel(post.getTiming());
 		lb_time.setForeground(Color.GRAY);
 		lb_time.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GroupLayout gl_panel_title = new GroupLayout(panel_title);
@@ -78,13 +80,13 @@ public class Item_post extends JPanel{
 					.addComponent(imageAvatar, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_title.createParallelGroup(Alignment.LEADING)
-						.addComponent(lb_userName, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lb_time, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(639, Short.MAX_VALUE))
+						.addComponent(lb_userName, GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+						.addComponent(lb_time, GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		gl_panel_title.setVerticalGroup(
 			gl_panel_title.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_title.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, gl_panel_title.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lb_userName)
 					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 
 public class NewPost extends JPanel{
 	private ImageAvatar imageAvatar;
+	private JButton bt_newPost;
 
 	public NewPost() {	
 		setLayout(new MigLayout("fillx", "100[fill]40", "15[]15"));
@@ -29,13 +30,14 @@ public class NewPost extends JPanel{
 		
 		imageAvatar = new ImageAvatar();
 		imageAvatar.setBorderSize(0);
-		imageAvatar.setImage(new ImageIcon(getClass().getResource("/images/testing/dinhdeptrai.jpg")));
+		imageAvatar.setImage(new ImageIcon(getClass().getResource("/images/testing/avatar.png")));
 		
-		JButton bt_newPost = new JButton("Start a new post...");
+		bt_newPost = new JButton("Start a new post...");
 		bt_newPost.setFont(new Font("Tahoma", Font.BOLD, 22));
 		bt_newPost.setHorizontalAlignment(SwingConstants.LEFT);
 		bt_newPost.setBorder(null);
 		bt_newPost.setBackground(Color.white);
+		
 		
 		GroupLayout groupLayout = new GroupLayout(panel_newPost);
 		groupLayout.setHorizontalGroup(
@@ -59,4 +61,11 @@ public class NewPost extends JPanel{
 		
 		add(panel_newPost);
 	}
+
+	public JButton getBt_newPost() {
+		return bt_newPost;
+	}
+
+	
+	
 }

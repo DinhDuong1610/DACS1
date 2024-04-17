@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import model.community.Model_Project;
+import service.Service;
 import view.CommunityUI.form.Menu_Left;
 
 public class Controller_MenuLeft implements ActionListener{
@@ -17,7 +19,8 @@ public class Controller_MenuLeft implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == menuLeft.getBt_add()) {
 			String nameProject = JOptionPane.showInputDialog(menuLeft, "Input name project");
-			menuLeft.addProject(nameProject);
+			Model_Project project = new Model_Project(0, nameProject);
+			Service.getInstance().addProject(project.toJsonObject());
 		}
 		
 	}

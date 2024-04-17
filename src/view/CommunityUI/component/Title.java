@@ -12,10 +12,12 @@ import java.awt.Graphics;
 import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.Border;
 
 import controller.CardLayout.CardLayout_Community;
+import model.community.Model_Project;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,10 +25,16 @@ import java.awt.event.ActionEvent;
 public class Title extends JPanel{
 	private JButton bt_post;
 	private JButton bt_event;
+	
+	private Model_Project project;
+	private JLabel lb_nameProject;
+	private JButton bt_newMeeting;
+	private JButton bt_member;
 
-	public Title(String nameProject) {
+	public Title(Model_Project project) {
+		this.project = project;
 		
-		JLabel lb_nameProject = new JLabel(nameProject);
+		lb_nameProject = new JLabel();
 		lb_nameProject.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
 		bt_post = new JButton("Post");
@@ -39,11 +47,11 @@ public class Title extends JPanel{
 		bt_event.setFont(new Font("Tahoma", Font.BOLD, 18));
 		bt_event.setBackground(new Color(242, 242, 242));
 		
-		JButton bt_newMeeting = new JButton("New meeting");
+		bt_newMeeting = new JButton("New meeting");
 		bt_newMeeting.setFont(new Font("Tahoma", Font.BOLD, 15));
 		bt_newMeeting.setBackground(new Color(242, 242, 242));
 		
-		JButton bt_member = new JButton("Member");
+		bt_member = new JButton("Member");
 		bt_member.setFont(new Font("Tahoma", Font.BOLD, 15));
 		bt_member.setBackground(new Color(242, 242, 242));
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -78,6 +86,20 @@ public class Title extends JPanel{
 		
 		setBackground(Color.white);
 	}
+	
+	
+
+	public JButton getBt_newMeeting() {
+		return bt_newMeeting;
+	}
+
+
+
+	public JButton getBt_member() {
+		return bt_member;
+	}
+
+
 
 	public JButton getBt_post() {
 		return bt_post;
@@ -86,6 +108,25 @@ public class Title extends JPanel{
 	public JButton getBt_event() {
 		return bt_event;
 	}
+
+	public JLabel getLb_nameProject() {
+		return lb_nameProject;
+	}
+
+	public void setLb_nameProject(JLabel lb_nameProject) {
+		this.lb_nameProject = lb_nameProject;
+	}
+
+	public Model_Project getProject() {
+		return project;
+	}
+
+	public void setProject(Model_Project project) {
+		this.project = project;
+		lb_nameProject.setText(project.getProjectName());
+	}
+	
+	
 
 	
 	

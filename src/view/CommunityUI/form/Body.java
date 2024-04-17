@@ -2,12 +2,16 @@ package view.CommunityUI.form;
 
 import java.awt.Color;
 
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import controller.CardLayout.CardLayout_Community;
+import controller.Community.Controller_Member;
+import model.community.Model_Project;
 import net.miginfocom.swing.MigLayout;
+import service.Service;
 import view.CommunityUI.component.NewPost;
 import view.CommunityUI.component.News;
 import view.CommunityUI.component.Page;
@@ -17,9 +21,13 @@ public class Body extends JPanel{
 	private Title title;
 	private Page page;
 	
-	public Body() {
-		title = new Title("PROJECT 1");
-		page = new Page();
+	private Model_Project project;
+	private ListMember member;
+	
+	public Body(Model_Project project) {
+		this.project = project;
+		title = new Title(project);
+		page = new Page(project);
 		
 		setBackground(new Color(242, 242, 242));
 		
@@ -28,7 +36,20 @@ public class Body extends JPanel{
 		
 		this.add(title, "wrap");
 		this.add(page);
-		cardLayout();
+		
+		Controller_Member action_member = new Controller_Member(this);
+		title.getBt_member().addActionListener(action_member);
+//		cardLayout();
+	}
+	
+	public void memberProject() {
+		JDialog dialog = new JDialog();
+		member = new ListMember(project);
+		Service.getInstance().listMember(project.getProjectId());
+		dialog.setSize(300, 400);
+		dialog.setLocationRelativeTo(null);
+		dialog.add(member);
+		dialog.setVisible(true);
 	}
 	
 	public void cardLayout() {
@@ -45,6 +66,25 @@ public class Body extends JPanel{
 		return page;
 	}
 
+	public Model_Project getProject() {
+		return project;
+	}
+
+	public void setProject(Model_Project project) {
+		this.project = project;
+		title.setProject(project);
+		page.setProject(project);
+	}
+
+	public ListMember getMember() {
+		return member;
+	}
+
+	public void setMember(ListMember member) {
+		this.member = member;
+	}
+	
+	
 	
 	
 

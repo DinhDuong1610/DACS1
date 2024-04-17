@@ -20,7 +20,7 @@ public class Chat_Left_With_Profile extends JLayeredPane{
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		
 		IaImage.setBorderSize(0);
-		IaImage.setImage(new ImageIcon(getClass().getResource("/images/testing/dinhdeptrai.jpg")));
+		IaImage.setImage(new ImageIcon(getClass().getResource("/images/testing/avatar.png")));
         IaImage.setMaximumSize(new Dimension(31, 31));
         IaImage.setMinimumSize(new Dimension(31, 31));
         IaImage.setPreferredSize(new Dimension(31, 31));

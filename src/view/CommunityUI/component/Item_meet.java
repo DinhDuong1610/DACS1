@@ -87,7 +87,7 @@ public class Item_meet extends JPanel{
 //		JLabel lb_avatar = new JLabel("");
 		imageAvatar = new ImageAvatar();
 		imageAvatar.setBorderSize(0);
-		imageAvatar.setImage(new ImageIcon(getClass().getResource("/images/testing/dinhdeptrai.jpg")));
+		imageAvatar.setImage(new ImageIcon(getClass().getResource("/images/testing/avatar.png")));
 		
 		JLabel lb_userName = new JLabel(userName);
 		lb_userName.setFont(new Font("Tahoma", Font.BOLD, 22));

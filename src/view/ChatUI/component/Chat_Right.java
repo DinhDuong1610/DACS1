@@ -1,6 +1,8 @@
 package view.ChatUI.component;
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.GroupLayout;
 import javax.swing.Icon;
@@ -38,7 +40,10 @@ public class Chat_Right extends JLayeredPane{
     }
 
     public void setTime() {
-        txt.setTime("10:30 PM");
+        Date currentTime = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        String formattedTime = dateFormat.format(currentTime);
+        txt.setTime(formattedTime); 
     }
     
     public void setFile(String fileName, String fileSize) {

@@ -10,10 +10,14 @@ import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.Chat.Model_User_Account;
+
 public class Chat_Title extends JPanel{
 	private JLayeredPane layer;
 	private JLabel lbName;
 	private JLabel lbStatus;
+	
+	private Model_User_Account user;
 	
 	public Chat_Title() {
 		layer = new JLayeredPane();
@@ -52,6 +56,27 @@ public class Chat_Title extends JPanel{
 		
 	}
 	
+    public void setUserName(Model_User_Account user) {
+        this.user = user;
+        lbName.setText(user.getUserName());
+//        if (user.isStatus()) {
+//            statusActive();
+//        } else {
+//            setStatusText("Offline");
+//        }
+    }
+
+    public void updateUser(Model_User_Account user) {
+        if (this.user == user) {
+            lbName.setText(user.getUserName());
+//            if (user.isStatus()) {
+//                statusActive();
+//            } else {
+//                setStatusText("Offline");
+//            }
+        }
+    }
+	
 	public void setUserName(String userName) {
 		lbName.setText(userName);
 	}
@@ -65,4 +90,8 @@ public class Chat_Title extends JPanel{
 		lbStatus.setText(text);
 		lbStatus.setForeground(new Color(160, 160, 160));
 	}
+	
+    public Model_User_Account getUser() {
+        return user;
+    }
 }

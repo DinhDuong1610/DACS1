@@ -10,12 +10,18 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
+import model.Chat.Model_Register;
+import model.Chat.Model_Send_Message;
+import model.Chat.Model_User_Account;
 import net.miginfocom.swing.MigLayout;
+import service.Service;
 import view.ChatUI.event.PublicEvent;
 import view.ChatUI.swing.JIMSendTextPane;
 
 public class Chat_Bottom extends JPanel{
-	
+
+    private Model_User_Account user;
+    
 	public Chat_Bottom() {
         setBackground(new Color(255, 255, 255));
 
@@ -58,7 +64,9 @@ public class Chat_Bottom extends JPanel{
             public void actionPerformed(ActionEvent ae) {
                 String text = txt.getText().trim();
                 if (!text.equals("")) {
-                    PublicEvent.getInstance().getEventChat().sendMessage(text);
+                    Model_Send_Message message = new Model_Send_Message(Service.getInstance().getUser().getUser_Id(), user.getUser_Id(), text);
+                    send(message);
+                    PublicEvent.getInstance().getEventChat().sendMessage(message);
                     txt.setText("");
                     txt.grabFocus();
                     refresh();
@@ -71,8 +79,21 @@ public class Chat_Bottom extends JPanel{
         add(panel);
 	}
 	
+	private void send(Model_Send_Message data) {
+		Service.getInstance().sendMessage(data.toJsonObject());
+//        Service.getInstance().getClient().emit("send_to_user", data.toJsonObject());
+    }
+	
 	public void refresh() {
 		revalidate();
 	}
+	
+    public Model_User_Account getUser() {
+        return user;
+    }
+
+    public void setUser(Model_User_Account user) {
+        this.user = user;
+    }
 
 }
