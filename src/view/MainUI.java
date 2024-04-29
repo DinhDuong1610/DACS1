@@ -12,6 +12,7 @@ import controller.CardLayout.CardLayout_User;
 import model.ImageDecoder;
 import model.Chat.Model_User_Account;
 import model.community.Model_Project;
+import view.CalendarUI.CalendarUI;
 import view.ChatUI.event.EventImageView;
 import view.ChatUI.event.EventMain;
 import view.ChatUI.event.PublicEvent;
@@ -21,6 +22,8 @@ import view.ChatUI.form.View_Image;
 import view.CommunityUI.form.HomeCommu;
 
 import service.Service;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class MainUI extends JFrame {
@@ -435,6 +438,11 @@ public class MainUI extends JFrame {
 //		panel_user_password_edit_view.add(bt_user_password_edit_save);
 //		
 		bt_user_edit_save = new JButton("LƯU THAY ĐỔI");
+		bt_user_edit_save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				editUser();
+			}
+		});
 		bt_user_edit_save.setFont(new Font("Tahoma", Font.BOLD, 22));
 		bt_user_edit_save.setBounds(620, 657, 313, 62);
 		panel_card_user_edit.add(bt_user_edit_save);
@@ -477,6 +485,13 @@ public class MainUI extends JFrame {
 		panel_card_community.add(home_community);
 		
 	// <Panel_card_community/>
+		
+	// <Panel_card_calendar>
+		panel_card_calender.setLayout(new GridLayout(1,1));
+		CalendarUI calendarUI = new CalendarUI();
+		panel_card_calender.add(calendarUI);
+	// <Panel_card_calendar/>
+
 // <VIEW/>
 		
 		
@@ -582,6 +597,12 @@ public class MainUI extends JFrame {
 		ta_DiaChi.setText(ta_DiaChi_edit.getText());
 		lb_tenTaiKhoan.setText(tf_user_TenTaiKhoan_edit.getText());
 	}
+	
+//	public void editUser() {
+//		user.setEmail(getName());
+//		user.setFullName(getName());
+//		user.
+//	}
 
 	public Login getLogin() {
 		return login;

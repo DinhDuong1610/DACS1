@@ -39,7 +39,7 @@ public class Body extends JPanel{
 		
 		Controller_Member action_member = new Controller_Member(this);
 		title.getBt_member().addActionListener(action_member);
-//		cardLayout();
+		cardLayout();
 	}
 	
 	public void memberProject() {
